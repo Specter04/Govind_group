@@ -226,7 +226,7 @@ export default function ProjectDetail() {
         <div className="wrap">
           <Reveal>
             <h3 className="text-[clamp(28px,3.6vw,40px)] mb-6">Enquire About {project.name}</h3>
-            <div className="btn btn-primary inline-block" onClick={() => navigate('/contact')}>Enquire About This Creation</div>
+            <div className="btn btn-primary inline-block" onClick={() => navigate('/contact', { state: { projectSlug: project.slug } })}>Enquire About This Creation</div>
           </Reveal>
         </div>
       </div>
