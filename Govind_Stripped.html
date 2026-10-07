@@ -1,0 +1,1209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Govind Group — Creating Spaces That Endure</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Manrope:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0B2A43;
+  --navy-deep:#071B2C;
+  --navy-mid:#123753;
+  --gold:#B89255;
+  --gold-light:#D4B683;
+  --ivory:#F5F1E8;
+  --ivory-soft:#FAF8F3;
+  --stone:#D9D2C5;
+  --charcoal:#202326;
+  --taupe:#8A8375;
+  --ivory-sec:#B9B2A5;
+  --garden-green:#0B4A3C;
+  --radius:2px;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;scroll-padding-top:env(safe-area-inset-top,0px);}
+body{
+  margin:0;
+  background:var(--ivory);
+  color:var(--charcoal);
+  font-family:'Manrope',Arial,sans-serif;
+  overflow-x:hidden;
+}
+img{max-width:100%;display:block;}
+a{color:inherit;text-decoration:none;}
+h1,h2,h3,h4{font-family:'Cormorant Garamond',Georgia,serif;font-weight:500;margin:0;letter-spacing:.2px;}
+.serif{font-family:'Cormorant Garamond',Georgia,serif;}
+.eyebrow{
+  font-family:'Manrope',sans-serif;font-size:12px;letter-spacing:.22em;text-transform:uppercase;font-weight:600;color:var(--gold);
+}
+.wrap{max-width:1240px;margin:0 auto;padding:0 40px;}
+@media (max-width:700px){.wrap{padding:0 22px;}}
+
+/* ---------- Loading / Prototype badge ---------- */
+.proto-tag{
+  position:fixed;left:16px;bottom:16px;z-index:500;
+  background:rgba(11,42,67,.92);color:var(--ivory-sec);
+  font-size:11px;letter-spacing:.08em;padding:8px 12px;border:1px solid rgba(212,182,131,.35);
+  border-radius:var(--radius);font-family:'Manrope',sans-serif;
+  backdrop-filter:blur(4px);
+}
+
+/* ---------- Header ---------- */
+header{
+  position:fixed;top:0;left:0;right:0;z-index:400;
+  padding:22px 0;
+  transition:background .45s ease, padding .35s ease, border-color .45s ease;
+  border-bottom:1px solid transparent;
+}
+header.solid{
+  background:rgba(11,42,67,.97);
+  padding:14px 0;
+  border-bottom:1px solid rgba(212,182,131,.18);
+}
+header.light-mode{ /* on pages without dark hero */
+  background:var(--navy);
+  padding:14px 0;
+  border-bottom:1px solid rgba(212,182,131,.18);
+}
+.header-inner{display:flex;align-items:center;justify-content:space-between;}
+.logo-lockup{display:flex;align-items:center;gap:12px;cursor:pointer;}
+.logo-lockup img{height:34px;width:auto;filter:drop-shadow(0 0 1px rgba(0,0,0,.2));}
+.logo-word{
+  font-family:'Cormorant Garamond',serif;color:var(--ivory);font-size:19px;letter-spacing:.06em;line-height:1.05;
+}
+.logo-word span{display:block;font-family:'Manrope',sans-serif;font-size:9px;letter-spacing:.28em;color:var(--gold-light);margin-top:2px;}
+
+nav.main-nav{display:flex;align-items:center;gap:36px;}
+.nav-item{position:relative;}
+.nav-link{
+  font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--ivory);
+  font-weight:600;cursor:pointer;padding:6px 0;position:relative;
+  display:flex;align-items:center;gap:5px;
+}
+.nav-link::after{
+  content:'';position:absolute;left:0;bottom:-2px;width:0;height:1px;background:var(--gold);
+  transition:width .3s ease;
+}
+.nav-link:hover::after,.nav-link.active::after{width:100%;}
+.caret{font-size:9px;color:var(--gold-light);transform:translateY(1px);}
+.dropdown{
+  position:absolute;top:130%;left:50%;transform:translateX(-50%) translateY(-6px);
+  background:var(--navy-deep);border:1px solid rgba(212,182,131,.25);min-width:210px;
+  padding:10px 0;opacity:0;pointer-events:none;transition:opacity .25s ease, transform .25s ease;
+  box-shadow:0 20px 40px rgba(0,0,0,.35);
+}
+.nav-item:hover .dropdown{opacity:1;pointer-events:auto;transform:translateX(-50%) translateY(0);}
+.dropdown a{
+  display:block;padding:10px 22px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--ivory-sec);white-space:nowrap;
+}
+.dropdown a:hover{color:var(--gold-light);background:rgba(212,182,131,.06);}
+.contact-pill{
+  border:1px solid var(--gold);color:var(--gold-light);font-size:12px;letter-spacing:.1em;
+  padding:9px 20px;text-transform:uppercase;cursor:pointer;transition:background .25s,color .25s;
+}
+.contact-pill:hover{background:var(--gold);color:var(--navy-deep);}
+.burger{display:none;flex-direction:column;gap:5px;cursor:pointer;z-index:410;}
+.burger span{width:24px;height:1.5px;background:var(--ivory);display:block;transition:.3s;}
+
+@media (max-width:900px){
+  nav.main-nav{display:none;}
+  .burger{display:flex;}
+}
+
+/* ---------- Mobile nav overlay ---------- */
+.mobile-nav{
+  position:fixed;inset:0;background:var(--navy-deep);z-index:600;
+  display:flex;flex-direction:column;padding:100px 32px 40px;
+  transform:translateY(-100%);transition:transform .45s ease;
+  overflow-y:auto;
+}
+.mobile-nav.open{transform:translateY(0);}
+.mnav-item{border-bottom:1px solid rgba(212,182,131,.15);padding:18px 0;}
+.mnav-top{display:flex;align-items:center;justify-content:space-between;cursor:pointer;}
+.mnav-top span.label{font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--ivory);}
+.mnav-arrow{color:var(--gold);transition:transform .3s;}
+.mnav-sub{max-height:0;overflow:hidden;transition:max-height .35s ease;}
+.mnav-sub a{display:block;padding:10px 0 10px 6px;font-size:14px;letter-spacing:.06em;text-transform:uppercase;color:var(--ivory-sec);}
+.mnav-item.expanded .mnav-sub{max-height:220px;}
+.mnav-item.expanded .mnav-arrow{transform:rotate(180deg);}
+.mnav-close{position:absolute;top:28px;right:28px;color:var(--ivory);font-size:22px;cursor:pointer;}
+
+/* ---------- Pages ---------- */
+.page{display:none;}
+.page.active{display:block;}
+
+/* ---------- HOME HERO ---------- */
+.hero{
+  min-height:100vh;position:relative;display:flex;align-items:center;justify-content:center;text-align:center;
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(184,146,85,.10), transparent 55%),
+    radial-gradient(ellipse at 50% 100%, rgba(0,0,0,.55), transparent 60%),
+    linear-gradient(180deg,var(--navy-deep) 0%, var(--navy) 55%, var(--navy-mid) 100%);
+  color:var(--ivory);overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background-image:repeating-linear-gradient(0deg, rgba(255,255,255,.02) 0 1px, transparent 1px 3px);
+  opacity:.4;pointer-events:none;
+}
+.hero-inner{position:relative;z-index:2;max-width:760px;padding:0 28px;}
+.hero-inner img.mark{height:56px;margin:0 auto 30px;opacity:.95;}
+.hero-inner .eyebrow{display:block;margin-bottom:18px;}
+.hero-inner h1{font-size:clamp(44px,7vw,92px);line-height:1.05;color:var(--ivory);}
+.hero-inner p.sub{
+  font-size:17px;color:var(--ivory-sec);max-width:520px;margin:22px auto 0;line-height:1.7;font-weight:400;
+}
+.hero-ctas{display:flex;gap:18px;justify-content:center;margin-top:40px;flex-wrap:wrap;}
+.btn{
+  padding:15px 30px;font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;cursor:pointer;
+  border:1px solid transparent;transition:all .3s ease;display:inline-block;
+}
+.btn-primary{background:var(--ivory);color:var(--navy-deep);}
+.btn-primary:hover{background:var(--gold-light);}
+.btn-outline{border:1px solid var(--gold);color:var(--gold-light);}
+.btn-outline:hover{background:rgba(212,182,131,.1);}
+.btn-dark{background:var(--navy);color:var(--ivory);}
+.btn-dark:hover{background:var(--navy-deep);}
+.scroll-cue{
+  position:absolute;bottom:34px;left:50%;transform:translateX(-50%);
+  width:1px;height:46px;background:linear-gradient(180deg,var(--gold),transparent);z-index:2;
+}
+
+/* ---------- Section shells ---------- */
+section{padding:118px 0;}
+section.tight{padding:80px 0;}
+section.dark{background:var(--navy);color:var(--ivory);}
+section.mid{background:var(--navy-mid);color:var(--ivory);}
+.section-head{max-width:640px;margin-bottom:54px;}
+.section-head h2{font-size:clamp(34px,4.6vw,54px);margin-top:14px;line-height:1.1;}
+.section-head p{color:var(--taupe);font-size:16px;margin-top:16px;line-height:1.7;}
+section.dark .section-head p, section.mid .section-head p{color:var(--ivory-sec);}
+
+/* ---------- Placeholder image blocks ---------- */
+.ph-image{
+  position:relative;background:linear-gradient(135deg,#1b3a52,#0c2438 60%);
+  display:flex;align-items:center;justify-content:center;overflow:hidden;
+}
+.ph-image::before{
+  content:'';position:absolute;inset:0;
+  background-image:
+    linear-gradient(45deg, rgba(212,182,131,.05) 25%, transparent 25%, transparent 75%, rgba(212,182,131,.05) 75%),
+    linear-gradient(-45deg, rgba(212,182,131,.05) 25%, transparent 25%, transparent 75%, rgba(212,182,131,.05) 75%);
+  background-size:26px 26px;opacity:.5;
+}
+.ph-label{position:relative;z-index:1;color:var(--ivory-sec);font-size:11px;letter-spacing:.12em;text-transform:uppercase;text-align:center;padding:10px 16px;border:1px solid rgba(212,182,131,.3);font-family:'Manrope',sans-serif;}
+.ph-image.light{background:linear-gradient(135deg,#e7e0d2,#d8d0bf);}
+.ph-image.light .ph-label{color:var(--taupe);border-color:rgba(138,131,117,.35);}
+
+/* ---------- Brand statement ---------- */
+.statement{text-align:center;padding:100px 0;}
+.statement p{font-family:'Cormorant Garamond',serif;font-size:clamp(26px,3.4vw,42px);line-height:1.35;color:var(--navy);max-width:820px;margin:0 auto;}
+
+/* ---------- Creation cards ---------- */
+.grid{display:grid;gap:34px;}
+.grid.cols-3{grid-template-columns:repeat(3,1fr);}
+.grid.cols-4{grid-template-columns:repeat(4,1fr);}
+@media (max-width:980px){.grid.cols-3,.grid.cols-4{grid-template-columns:repeat(2,1fr);}}
+@media (max-width:620px){.grid.cols-3,.grid.cols-4{grid-template-columns:1fr;}}
+
+.card{cursor:pointer;transition:transform .4s ease;}
+.card:hover{transform:translateY(-4px);}
+.card .ph-image{height:280px;}
+.card:hover .ph-image::after{opacity:1;}
+.card-body{padding:22px 2px 0;}
+.status-pill{
+  font-size:10px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;padding:4px 10px;
+  display:inline-block;margin-bottom:12px;border-radius:1px;
+}
+.status-ongoing{background:rgba(184,146,85,.15);color:var(--gold);border:1px solid rgba(184,146,85,.4);}
+.status-upcoming{background:rgba(138,131,117,.12);color:var(--taupe);border:1px solid rgba(138,131,117,.35);}
+.status-completed{background:rgba(32,35,38,.06);color:var(--charcoal);border:1px solid rgba(32,35,38,.2);}
+.card h3{font-size:24px;margin-bottom:6px;}
+.card .meta{font-size:12.5px;color:var(--taupe);letter-spacing:.04em;margin-bottom:10px;}
+.card .explore{font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--navy);font-weight:700;display:flex;align-items:center;gap:6px;}
+.card .explore .arrow{transition:transform .3s;}
+.card:hover .explore .arrow{transform:translateX(5px);}
+.card.disabled{cursor:default;opacity:.72;}
+.card.disabled:hover{transform:none;}
+.card.disabled .explore{color:var(--taupe);}
+
+/* ---------- Split layout ---------- */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center;}
+@media (max-width:860px){.split{grid-template-columns:1fr;gap:40px;}}
+.split .ph-image{height:460px;}
+.split-text .eyebrow{margin-bottom:16px;display:block;}
+.split-text h2{font-size:clamp(30px,4vw,46px);margin-bottom:20px;line-height:1.15;}
+.split-text p{color:var(--taupe);line-height:1.8;font-size:15.5px;margin-bottom:26px;}
+section.dark .split-text p{color:var(--ivory-sec);}
+
+/* ---------- Numbers ---------- */
+.numbers{display:grid;grid-template-columns:repeat(4,1fr);text-align:center;gap:0;}
+@media (max-width:760px){.numbers{grid-template-columns:repeat(2,1fr);}}
+.numbers .numcell{padding:0 24px;position:relative;}
+.numbers .numcell::before{
+  content:'';position:absolute;top:-28px;left:50%;transform:translateX(-50%);width:22px;height:1px;background:rgba(212,182,131,.5);
+}
+.numbers .num{
+  font-family:'Manrope',sans-serif;font-weight:200;font-size:clamp(30px,3.6vw,44px);
+  color:var(--ivory);letter-spacing:.02em;line-height:1;
+}
+.numbers .lbl{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-light);margin-top:14px;font-weight:500;}
+
+/* ---------- Brand associations ---------- */
+.brand-row{
+  display:flex;justify-content:center;align-items:center;gap:60px;flex-wrap:wrap;margin-top:46px;
+}
+.brand-tile{
+  display:flex;align-items:center;justify-content:center;height:70px;width:170px;
+  border:1px solid var(--stone);color:var(--taupe);font-family:'Manrope',sans-serif;
+  font-size:13px;letter-spacing:.08em;text-transform:uppercase;font-weight:600;
+  filter:grayscale(1);opacity:.65;transition:opacity .3s,filter .3s;
+}
+.brand-tile:hover{opacity:1;filter:grayscale(0);}
+.brand-tile span.pending{display:block;font-size:9px;letter-spacing:.06em;color:var(--taupe);margin-top:4px;font-weight:400;text-transform:none;}
+
+/* ---------- Sub-brand logo cards (Garden / Foundation) ---------- */
+.subbrand-card{
+  display:flex;align-items:center;justify-content:center;padding:40px;height:100%;min-height:280px;
+}
+.subbrand-card.garden{background:var(--garden-green);}
+.subbrand-card.foundation{background:#0A0A0A;}
+.subbrand-card img{max-height:170px;width:auto;max-width:90%;}
+
+/* ---------- Footer ---------- */
+footer{background:var(--navy-deep);color:var(--ivory-sec);padding:80px 0 34px;}
+.footer-top{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:50px;padding-bottom:56px;border-bottom:1px solid rgba(212,182,131,.15);}
+@media (max-width:820px){.footer-top{grid-template-columns:1fr 1fr;}}
+.footer-top h4{color:var(--ivory);font-size:12px;letter-spacing:.1em;text-transform:uppercase;font-family:'Manrope',sans-serif;font-weight:700;margin-bottom:18px;}
+.footer-top a,.footer-top p{display:block;font-size:13.5px;color:var(--ivory-sec);margin-bottom:10px;line-height:1.6;}
+.footer-top a:hover{color:var(--gold-light);}
+.footer-logo{display:flex;align-items:center;gap:12px;margin-bottom:16px;}
+.footer-logo img{height:30px;}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:24px;font-size:11.5px;flex-wrap:wrap;gap:10px;}
+.footer-bottom .admin-link{opacity:.45;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px dotted rgba(212,182,131,.4);}
+.footer-bottom .admin-link:hover{opacity:.9;}
+
+/* ---------- Page header (non-home pages) ---------- */
+.page-hero{
+  padding:200px 0 90px;background:linear-gradient(180deg,var(--navy-deep),var(--navy));color:var(--ivory);text-align:left;
+}
+.page-hero .eyebrow{display:block;margin-bottom:16px;}
+.page-hero h1{font-size:clamp(42px,6vw,74px);}
+.page-hero p{color:var(--ivory-sec);max-width:560px;margin-top:18px;font-size:16px;line-height:1.7;}
+
+/* ---------- Filters ---------- */
+.filters{display:flex;gap:10px;margin-bottom:50px;flex-wrap:wrap;}
+.filter-btn{
+  padding:10px 20px;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;
+  border:1px solid var(--stone);color:var(--taupe);cursor:pointer;background:transparent;transition:.25s;
+}
+.filter-btn.active{background:var(--navy);color:var(--ivory);border-color:var(--navy);}
+.filter-btn:hover{border-color:var(--navy);color:var(--navy);}
+.filter-btn.active:hover{color:var(--ivory);}
+
+/* ---------- Project detail ---------- */
+.proj-hero{
+  min-height:74vh;display:flex;align-items:flex-end;position:relative;
+  background:linear-gradient(180deg, rgba(7,27,44,.35), rgba(7,27,44,.92)),
+             linear-gradient(135deg,#173a54,#0a2136 70%);
+  color:var(--ivory);padding:200px 0 60px;
+}
+.proj-hero .wrap{position:relative;z-index:2;}
+.proj-hero .eyebrow{display:block;margin-bottom:16px;}
+.proj-hero h1{font-size:clamp(46px,7vw,88px);}
+.proj-hero .loc-type{margin-top:16px;font-size:15px;color:var(--ivory-sec);letter-spacing:.03em;}
+.proj-hero .loc-type b{color:var(--gold-light);font-weight:600;}
+
+.highlight-strip{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--stone);border-bottom:1px solid var(--stone);}
+@media (max-width:760px){.highlight-strip{grid-template-columns:repeat(2,1fr);}}
+.highlight-strip .hl{padding:34px 30px;border-right:1px solid var(--stone);}
+.highlight-strip .hl:last-child{border-right:none;}
+.highlight-strip .hl .v{font-family:'Cormorant Garamond',serif;font-size:30px;color:var(--navy);}
+.highlight-strip .hl .l{font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--taupe);margin-top:6px;}
+
+.placeholder-note{
+  font-size:11.5px;color:var(--taupe);border:1px dashed var(--stone);padding:10px 16px;display:inline-block;
+  letter-spacing:.03em;margin-bottom:20px;background:rgba(217,210,197,.25);
+}
+
+.chip-row{display:flex;flex-wrap:wrap;gap:12px;}
+.chip{border:1px solid var(--stone);padding:10px 18px;font-size:13px;color:var(--charcoal);letter-spacing:.02em;}
+
+.dist-list{border-top:1px solid var(--stone);}
+.dist-row{display:flex;justify-content:space-between;padding:16px 0;border-bottom:1px solid var(--stone);font-size:14.5px;}
+.dist-row span:first-child{color:var(--charcoal);}
+.dist-row span:last-child{color:var(--taupe);}
+
+.gallery-grid{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:150px;gap:14px;}
+.gallery-grid .g1{grid-column:span 2;grid-row:span 2;}
+@media (max-width:760px){.gallery-grid{grid-template-columns:repeat(2,1fr);}.gallery-grid .g1{grid-column:span 2;grid-row:span 2;}}
+.gallery-grid .photo-tile{position:relative;overflow:hidden;background:#0c2438;cursor:pointer;}
+.gallery-grid .photo-tile img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease;}
+.gallery-grid .photo-tile:hover img{transform:scale(1.05);}
+.gallery-grid .photo-tile.floorplan-tile{background:#fff;}
+.gallery-grid .photo-tile.floorplan-tile img{object-fit:contain;background:#fff;}
+#pd-about-image img,#pd-custom-image img{width:100%;height:460px;object-fit:cover;}
+#pd-custom-image{background:#0c2438;}
+.lightbox-overlay{position:fixed;inset:0;background:rgba(7,27,44,.94);z-index:900;display:none;align-items:center;justify-content:center;flex-direction:column;}
+.lightbox-overlay.open{display:flex;}
+.lightbox-overlay img{max-width:88vw;max-height:78vh;object-fit:contain;}
+.lightbox-overlay .lb-controls{display:flex;gap:26px;margin-top:22px;align-items:center;color:var(--ivory-sec);}
+.lightbox-overlay .lb-controls span{cursor:pointer;font-size:22px;color:var(--gold-light);}
+.lightbox-overlay .lb-close{position:absolute;top:26px;right:32px;color:var(--ivory);font-size:24px;cursor:pointer;}
+
+.accordion-item{border-bottom:1px solid var(--stone);}
+.accordion-head{
+  display:flex;justify-content:space-between;align-items:center;padding:22px 4px;cursor:pointer;
+}
+.accordion-head h4{font-size:18px;font-weight:500;}
+.accordion-plus{color:var(--gold);font-size:18px;transition:transform .3s;}
+.accordion-item.open .accordion-plus{transform:rotate(45deg);}
+.accordion-body{max-height:0;overflow:hidden;transition:max-height .35s ease;}
+.accordion-item.open .accordion-body{max-height:900px;}
+.accordion-body p{padding:0 4px 22px;color:var(--taupe);font-size:14px;line-height:1.7;}
+
+.related-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;}
+@media (max-width:760px){.related-strip{grid-template-columns:1fr;}}
+
+.enquire-band{
+  background:var(--navy);color:var(--ivory);padding:70px 0;text-align:center;
+}
+.enquire-band h3{font-size:clamp(28px,3.6vw,40px);margin-bottom:24px;}
+
+/* ---------- Our story ---------- */
+.story-block{padding:90px 0;border-bottom:1px solid var(--stone);}
+.story-block:last-child{border-bottom:none;}
+
+/* ---------- Hospitality ---------- */
+.cuisine-row{display:flex;gap:14px;flex-wrap:wrap;margin-top:26px;}
+.cuisine-tag{border:1px solid var(--gold);color:var(--gold-light);padding:9px 18px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;}
+
+/* ---------- Careers ---------- */
+.job-list{border-top:1px solid var(--stone);}
+.job-row{
+  display:flex;justify-content:space-between;align-items:center;padding:28px 0;border-bottom:1px solid var(--stone);
+  cursor:pointer;transition:.25s;
+}
+.job-row:hover{background:rgba(184,146,85,.05);}
+.job-row .jt h4{font-size:22px;}
+.job-row .jt .meta{font-size:13px;color:var(--taupe);margin-top:6px;}
+.job-row .jarrow{font-size:20px;color:var(--gold);}
+.sample-flag{font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--taupe);border:1px solid var(--stone);padding:3px 8px;margin-left:10px;}
+
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;}
+@media (max-width:700px){.form-grid{grid-template-columns:1fr;}}
+.field{margin-bottom:0;}
+.field label{display:block;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--taupe);margin-bottom:9px;}
+.field input,.field select,.field textarea{
+  width:100%;border:none;border-bottom:1px solid var(--stone);background:transparent;padding:12px 2px;
+  font-family:'Manrope',sans-serif;font-size:15px;color:var(--charcoal);outline:none;transition:border-color .25s;
+}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--gold);}
+.field.full{grid-column:1/-1;}
+.upload-box{border:1px dashed var(--stone);padding:26px;text-align:center;font-size:13px;color:var(--taupe);cursor:pointer;}
+.upload-box:hover{border-color:var(--gold);}
+.form-submitted{display:none;text-align:center;padding:60px 0;}
+.form-submitted.show{display:block;}
+.form-submitted .check{
+  width:64px;height:64px;border:1px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;
+  margin:0 auto 24px;color:var(--gold);font-size:26px;
+}
+
+/* ---------- Contact ---------- */
+.contact-info-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:30px;margin-bottom:60px;}
+@media (max-width:760px){.contact-info-row{grid-template-columns:1fr;}}
+.contact-info-row .ci{border-top:1px solid var(--stone);padding-top:20px;}
+.contact-info-row .ci .eyebrow{margin-bottom:10px;display:block;}
+.contact-info-row .ci p{font-size:15px;color:var(--charcoal);}
+.map-block{height:340px;margin-bottom:60px;}
+
+/* ================= ADMIN CONCEPT ================= */
+#page-admin{background:#F4F5F6;font-family:'Manrope',sans-serif;color:#20242a;min-height:100vh;}
+.admin-shell{display:flex;min-height:100vh;}
+.admin-side{
+  width:230px;background:#1B1F24;color:#B7BEC7;padding:28px 20px;flex-shrink:0;
+}
+.admin-side .abrand{color:#fff;font-size:15px;font-weight:700;letter-spacing:.02em;margin-bottom:36px;display:flex;align-items:center;gap:10px;}
+.admin-side .abrand small{display:block;font-size:10px;color:#7C8894;font-weight:400;letter-spacing:.08em;}
+.admin-nav-item{padding:11px 12px;font-size:13.5px;border-radius:5px;margin-bottom:3px;cursor:pointer;display:flex;align-items:center;gap:10px;}
+.admin-nav-item.active{background:#2A3038;color:#fff;}
+.admin-nav-item:hover{background:#242a30;}
+.admin-main{flex:1;padding:38px 44px;overflow-x:auto;}
+.admin-topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:30px;}
+.admin-topbar h2{font-family:'Manrope',sans-serif;font-size:22px;font-weight:700;color:#1B1F24;}
+.admin-btn{background:#1B1F24;color:#fff;font-size:13px;padding:10px 18px;border-radius:5px;cursor:pointer;font-weight:600;border:none;}
+.admin-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:32px;}
+.astat{background:#fff;border:1px solid #E4E6E9;border-radius:7px;padding:20px;}
+.astat .v{font-size:26px;font-weight:700;color:#1B1F24;}
+.astat .l{font-size:12px;color:#7C8894;margin-top:4px;}
+.admin-table-wrap{background:#fff;border:1px solid #E4E6E9;border-radius:7px;overflow:hidden;}
+table.admin-table{width:100%;border-collapse:collapse;font-size:13.5px;min-width:760px;}
+table.admin-table th{
+  text-align:left;padding:14px 18px;background:#FAFAFB;color:#7C8894;font-size:11px;letter-spacing:.05em;
+  text-transform:uppercase;border-bottom:1px solid #E4E6E9;font-weight:700;
+}
+table.admin-table td{padding:14px 18px;border-bottom:1px solid #EFF0F2;color:#2C333A;}
+table.admin-table tr:last-child td{border-bottom:none;}
+.atag{font-size:11px;font-weight:700;padding:4px 10px;border-radius:3px;letter-spacing:.02em;}
+.atag.ongoing{background:#FDF3E7;color:#B8792D;}
+.atag.upcoming{background:#EEF0F6;color:#5B6478;}
+.atag.completed{background:#E9F4EC;color:#2E7D46;}
+.arow-actions{display:flex;gap:14px;font-size:12px;color:#5B6478;}
+.arow-actions span{cursor:pointer;}
+.arow-actions span:hover{color:#1B1F24;text-decoration:underline;}
+.admin-back{
+  position:fixed;bottom:24px;right:24px;background:#1B1F24;color:#fff;font-size:12px;padding:10px 16px;
+  border-radius:20px;cursor:pointer;z-index:50;letter-spacing:.03em;
+}
+</style>
+</head>
+<body>
+
+<div class="proto-tag">DESIGN PROTOTYPE — for review only</div>
+
+<!-- ===================== HEADER ===================== -->
+<header id="site-header">
+  <div class="wrap header-inner">
+    <div class="logo-lockup" onclick="showPage('home')">
+      <img src="[BASE64_IMAGE]" alt="Govind Group mark">
+      <div class="logo-word">GOVIND GROUP<span>REAL ESTATE · HOSPITALITY</span></div>
+    </div>
+    <nav class="main-nav">
+      <div class="nav-item"><a class="nav-link" onclick="showPage('home')">Home</a></div>
+      <div class="nav-item">
+        <a class="nav-link" onclick="showPage('creations','all')">Creations <span class="caret">▾</span></a>
+        <div class="dropdown">
+          <a onclick="showPage('creations','ongoing')">Ongoing</a>
+          <a onclick="showPage('creations','upcoming')">Upcoming</a>
+          <a onclick="showPage('creations','completed')">Completed</a>
+        </div>
+      </div>
+      <div class="nav-item"><a class="nav-link" onclick="showPage('story')">Our Story</a></div>
+      <div class="nav-item">
+        <a class="nav-link" onclick="showPage('hospitality')">Hospitality <span class="caret">▾</span></a>
+        <div class="dropdown">
+          <a onclick="showPage('hospitality','garden')">Govind Garden</a>
+          <a onclick="showPage('hospitality','foundation')">Shatrughna Kate Youth Foundation</a>
+        </div>
+      </div>
+      <div class="nav-item"><a class="nav-link" onclick="showPage('careers')">Careers</a></div>
+      <div class="nav-item"><a class="nav-link" onclick="showPage('contact')">Contact</a></div>
+    </nav>
+    <div style="display:flex;align-items:center;gap:22px;">
+      <div class="contact-pill" onclick="showPage('contact')" style="display:none" id="header-cta">Enquire</div>
+      <div class="burger" onclick="toggleMobileNav()"><span></span><span></span><span></span></div>
+    </div>
+  </div>
+</header>
+
+<!-- ===================== MOBILE NAV ===================== -->
+<div class="mobile-nav" id="mobile-nav">
+  <div class="mnav-close" onclick="toggleMobileNav()">✕</div>
+  <div class="mnav-item"><div class="mnav-top" onclick="showPage('home');toggleMobileNav()"><span class="label">Home</span></div></div>
+  <div class="mnav-item" id="mnav-creations">
+    <div class="mnav-top" onclick="toggleMnav('mnav-creations')"><span class="label">Creations</span><span class="mnav-arrow">▾</span></div>
+    <div class="mnav-sub">
+      <a onclick="showPage('creations','ongoing');toggleMobileNav()">Ongoing</a>
+      <a onclick="showPage('creations','upcoming');toggleMobileNav()">Upcoming</a>
+      <a onclick="showPage('creations','completed');toggleMobileNav()">Completed</a>
+    </div>
+  </div>
+  <div class="mnav-item"><div class="mnav-top" onclick="showPage('story');toggleMobileNav()"><span class="label">Our Story</span></div></div>
+  <div class="mnav-item" id="mnav-hosp">
+    <div class="mnav-top" onclick="toggleMnav('mnav-hosp')"><span class="label">Hospitality</span><span class="mnav-arrow">▾</span></div>
+    <div class="mnav-sub">
+      <a onclick="showPage('hospitality','garden');toggleMobileNav()">Govind Garden</a>
+      <a onclick="showPage('hospitality','foundation');toggleMobileNav()">Shatrughna Kate Youth Foundation</a>
+    </div>
+  </div>
+  <div class="mnav-item"><div class="mnav-top" onclick="showPage('careers');toggleMobileNav()"><span class="label">Careers</span></div></div>
+  <div class="mnav-item"><div class="mnav-top" onclick="showPage('contact');toggleMobileNav()"><span class="label">Contact</span></div></div>
+</div>
+
+<!-- ===================== HOME ===================== -->
+<div class="page active" id="page-home">
+  <div class="hero">
+    <div class="hero-inner">
+      <img class="mark" src="[BASE64_IMAGE]" alt="Govind Group">
+      <span class="eyebrow">Govind Group</span>
+      <h1>Creating Spaces<br>That Endure.</h1>
+      <p class="sub">Real estate, hospitality and spaces shaped by a long-term vision — building across Pune since 1998.</p>
+      <div class="hero-ctas">
+        <div class="btn btn-primary" onclick="showPage('creations','all')">Explore Creations</div>
+        <div class="btn btn-outline" onclick="showPage('story')">Our Story</div>
+      </div>
+    </div>
+    <div class="scroll-cue"></div>
+  </div>
+
+  <section class="statement">
+    <div class="wrap">
+      <p>From places to possibilities — Govind Group creates residential, commercial and hospitality environments designed to endure, across Pimple Saudagar, Tathawade and Pimple Gaurav.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Featured</span>
+        <h2>Featured Creations</h2>
+        <p>A selection of developments shaped by place, purpose and long-term thinking.</p>
+      </div>
+      <div class="grid cols-3" id="featured-grid"></div>
+    </div>
+  </section>
+
+  <section class="dark">
+    <div class="wrap split">
+      <div class="ph-image"><span class="ph-label">Editorial Image<br>— Architecture Detail —</span></div>
+      <div class="split-text">
+        <span class="eyebrow">Since 1998</span>
+        <h2>Our Story</h2>
+        <p>A family-owned group built on quality, trust and long-term thinking — spanning real estate under Govind Developers and hospitality under Govind Garden.</p>
+        <div class="btn btn-outline" onclick="showPage('story')">Discover Our Story</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="tight" style="background:var(--navy-mid);color:var(--ivory);padding-top:120px;">
+    <div class="wrap numbers">
+      <div class="numcell"><div class="num">1998</div><div class="lbl">Established</div></div>
+      <div class="numcell"><div class="num">15</div><div class="lbl">Creations</div></div>
+      <div class="numcell"><div class="num">02</div><div class="lbl">Divisions</div></div>
+      <div class="numcell"><div class="num">Pune</div><div class="lbl">Maharashtra</div></div>
+    </div>
+  </section>
+
+  <section class="tight">
+    <div class="wrap" style="text-align:center;">
+      <span class="eyebrow">Trusted By</span>
+      <h2 style="margin-top:14px;font-size:clamp(26px,3.4vw,36px);">Brand Associations</h2>
+      <div class="brand-row" id="brand-row"></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap split">
+      <div class="split-text">
+        <span class="eyebrow">Hospitality</span>
+        <h2>Govind Garden</h2>
+        <p>A multi-cuisine dining and events destination — North Indian, Italian &amp; Continental, Chinese, Maharashtrian and seafood, set within Govind Group's hospitality arm.</p>
+        <div class="btn btn-dark" onclick="showPage('hospitality','garden')">Explore Govind Garden</div>
+      </div>
+      <div class="subbrand-card garden"><img src="[BASE64_IMAGE]" alt="Govind Garden — A Legacy of Family Dining, Est. 1998"></div>
+    </div>
+  </section>
+
+  <section class="dark">
+    <div class="wrap split">
+      <div class="subbrand-card foundation"><img src="[BASE64_IMAGE]" alt="Shatrughna Kate Youth Foundation — Fight for the Bright Future"></div>
+      <div class="split-text">
+        <span class="eyebrow">Social Impact</span>
+        <h2>Shatrughna Kate<br>Youth Foundation</h2>
+        <p>Community and youth-development initiatives supported by Govind Group — a sincere, ongoing commitment rather than a promotional exercise.</p>
+        <div class="btn btn-outline" onclick="showPage('hospitality','foundation')">Learn More</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="tight">
+    <div class="wrap" style="text-align:center;">
+      <span class="eyebrow">Careers</span>
+      <h2 style="margin-top:14px;font-size:clamp(30px,4vw,44px);">Build With Us</h2>
+      <p style="color:var(--taupe);max-width:520px;margin:18px auto 30px;">Join a team shaping Pune's residential, commercial and hospitality landscape.</p>
+      <div class="btn btn-dark" onclick="showPage('careers')" style="display:inline-block;">View Openings</div>
+    </div>
+  </section>
+
+  <section class="mid tight" style="text-align:center;">
+    <div class="wrap">
+      <h2 style="font-size:clamp(30px,4vw,44px);color:var(--ivory);margin-bottom:22px;">Let's Talk</h2>
+      <div class="btn btn-primary" onclick="showPage('contact')" style="display:inline-block;">Get In Touch</div>
+    </div>
+  </section>
+</div>
+
+<!-- ===================== CREATIONS ===================== -->
+<div class="page" id="page-creations">
+  <div class="page-hero">
+    <div class="wrap">
+      <span class="eyebrow">Portfolio</span>
+      <h1>Creations</h1>
+      <p>A collection of spaces shaped by vision, place and purpose.</p>
+    </div>
+  </div>
+  <section>
+    <div class="wrap">
+      <div class="filters" id="filter-bar">
+        <div class="filter-btn active" data-filter="all" onclick="filterCreations('all')">All</div>
+        <div class="filter-btn" data-filter="ongoing" onclick="filterCreations('ongoing')">Ongoing</div>
+        <div class="filter-btn" data-filter="upcoming" onclick="filterCreations('upcoming')">Upcoming</div>
+        <div class="filter-btn" data-filter="completed" onclick="filterCreations('completed')">Completed</div>
+      </div>
+      <div class="grid cols-3" id="creations-grid"></div>
+    </div>
+  </section>
+</div>
+
+<!-- ===================== PROJECT DETAIL (generic, CMS-style: populated by renderProjectDetail(slug)) ===================== -->
+<div class="page" id="page-project">
+  <div class="proj-hero">
+    <div class="wrap">
+      <span class="eyebrow" id="pd-eyebrow"></span>
+      <h1 id="pd-title"></h1>
+      <div class="loc-type" id="pd-loctype"></div>
+    </div>
+  </div>
+  <div class="highlight-strip wrap" style="max-width:1240px;margin:0 auto;" id="pd-highlights"></div>
+
+  <section>
+    <div class="wrap split">
+      <div class="split-text">
+        <span class="eyebrow">About</span>
+        <h2 style="font-size:34px;" id="pd-about-title"></h2>
+        <p id="pd-about-text"></p>
+      </div>
+      <div id="pd-about-image"></div>
+    </div>
+  </section>
+
+  <section class="tight" id="pd-amenities-section">
+    <div class="wrap">
+      <div class="section-head"><span class="eyebrow">Amenities</span><h2 style="font-size:32px;" id="pd-amenities-heading"></h2></div>
+      <div class="chip-row" id="pd-amenities-chips"></div>
+    </div>
+  </section>
+
+  <section class="tight" id="pd-distances-section">
+    <div class="wrap">
+      <div class="section-head"><span class="eyebrow">Key Distances</span><h2 style="font-size:32px;">Connectivity</h2></div>
+      <div class="dist-list" id="pd-distances-list"></div>
+    </div>
+  </section>
+
+  <section class="tight" id="pd-custom-section" style="background:var(--navy);color:var(--ivory);">
+    <div class="wrap split">
+      <div id="pd-custom-image"></div>
+      <div class="split-text">
+        <span class="eyebrow" id="pd-custom-eyebrow">Custom Section</span>
+        <h2 style="font-size:30px;color:var(--ivory);" id="pd-custom-title"></h2>
+        <p id="pd-custom-text"></p>
+        <div id="pd-custom-cta"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="tight" id="pd-gallery-section">
+    <div class="wrap">
+      <div class="section-head"><span class="eyebrow">Gallery</span><h2 style="font-size:32px;">Gallery</h2></div>
+      <div class="gallery-grid" id="pd-gallery-grid"></div>
+    </div>
+  </section>
+
+  <section class="tight" id="pd-floorplan-section">
+    <div class="wrap">
+      <div class="section-head"><span class="eyebrow">Floor Plan</span><h2 style="font-size:32px;">Floor Plan</h2></div>
+      <div class="gallery-grid" id="pd-floorplan-grid"></div>
+    </div>
+  </section>
+
+  <section class="tight">
+    <div class="wrap">
+      <div class="section-head"><span class="eyebrow">Specifications</span><h2 style="font-size:32px;">Specifications</h2></div>
+      <div id="pd-spec-accordion"></div>
+    </div>
+  </section>
+
+  <div class="enquire-band">
+    <div class="wrap">
+      <h3 id="pd-enquire-title"></h3>
+      <div class="btn btn-primary" onclick="showPage('contact')" style="display:inline-block;">Enquire About This Creation</div>
+    </div>
+  </div>
+
+  <section class="tight">
+    <div class="wrap">
+      <div class="section-head"><span class="eyebrow">Related</span><h2 style="font-size:32px;">Related Creations</h2></div>
+      <div class="related-strip" id="pd-related"></div>
+    </div>
+  </section>
+</div>
+
+<!-- ===================== OUR STORY ===================== -->
+<div class="page" id="page-story">
+  <div class="page-hero">
+    <div class="wrap">
+      <span class="eyebrow">Est. 1998</span>
+      <h1>Our Story</h1>
+      <p>A family-owned group building considered spaces across Pune for over two decades.</p>
+    </div>
+  </div>
+
+  <div class="story-block">
+    <div class="wrap split">
+      <div class="ph-image light"><span class="ph-label">Editorial Image — Origins</span></div>
+      <div class="split-text">
+        <span class="eyebrow">Origins</span>
+        <h2 style="font-size:32px;">1998 — The Beginning</h2>
+        <p>Govind Group was established in 1998 in PCMC, Pune, as a family-owned conglomerate. Founding narrative details are CMS-editable — to be populated by the Govind Group team.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="story-block">
+    <div class="wrap split">
+      <div class="split-text">
+        <span class="eyebrow">Evolution</span>
+        <h2 style="font-size:32px;">Two Divisions, One Vision</h2>
+        <p>Govind Developers (real estate, est. 2012) and Govind Garden (hospitality) grew from the same founding principles of trust and long-term thinking.</p>
+      </div>
+      <div class="ph-image light"><span class="ph-label">Editorial Image — Evolution</span></div>
+    </div>
+  </div>
+
+  <div class="story-block">
+    <div class="wrap split">
+      <div class="ph-image light"><span class="ph-label">Editorial Image — Philosophy</span></div>
+      <div class="split-text">
+        <span class="eyebrow">Philosophy</span>
+        <h2 style="font-size:32px;">Quiet Confidence</h2>
+        <p>Content pending — CMS-editable field. To be written by Govind Group leadership.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="story-block">
+    <div class="wrap split">
+      <div class="split-text">
+        <span class="eyebrow">People &amp; Approach</span>
+        <h2 style="font-size:32px;">Built By People, For People</h2>
+        <p>Content pending — CMS-editable field.</p>
+      </div>
+      <div class="ph-image light"><span class="ph-label">Editorial Image — People</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== HOSPITALITY ===================== -->
+<div class="page" id="page-hospitality">
+  <div class="page-hero">
+    <div class="wrap">
+      <span class="eyebrow">Hospitality</span>
+      <h1>Hospitality &amp; Community</h1>
+      <p>Govind Garden and the Shatrughna Kate Youth Foundation — the human side of Govind Group.</p>
+    </div>
+  </div>
+
+  <section id="hosp-garden">
+    <div class="wrap split">
+      <div class="subbrand-card garden"><img src="[BASE64_IMAGE]" alt="Govind Garden — A Legacy of Family Dining, Est. 1998"></div>
+      <div class="split-text">
+        <span class="eyebrow">Govind Garden</span>
+        <h2 style="font-size:34px;">A Multi-Cuisine Dining Destination</h2>
+        <p>Govind Garden offers North Indian, Italian &amp; Continental, Chinese, Maharashtrian and seafood cuisine — for everyday dining, banquets and events.</p>
+        <div class="cuisine-row">
+          <div class="cuisine-tag">North Indian</div><div class="cuisine-tag">Italian / Continental</div>
+          <div class="cuisine-tag">Chinese</div><div class="cuisine-tag">Maharashtrian</div><div class="cuisine-tag">Seafood</div>
+        </div>
+        <div class="btn btn-dark" style="margin-top:26px;" onclick="showPage('contact')">Enquire About Dining &amp; Events</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="dark" id="hosp-foundation">
+    <div class="wrap split">
+      <div class="split-text">
+        <span class="eyebrow">Social Impact</span>
+        <h2 style="font-size:34px;color:var(--ivory);">Shatrughna Kate Youth Foundation</h2>
+        <p>A community and youth-development initiative supported by Govind Group. Initiatives, dates and impact figures are CMS-managed — populated only with verified information, never estimated.</p>
+        <div class="placeholder-note" style="background:transparent;border-color:rgba(212,182,131,.35);color:var(--ivory-sec);">Initiative list, photography and impact statistics pending — to be supplied by the Foundation</div>
+      </div>
+      <div class="subbrand-card foundation"><img src="[BASE64_IMAGE]" alt="Shatrughna Kate Youth Foundation — Fight for the Bright Future"></div>
+    </div>
+  </section>
+</div>
+
+<!-- ===================== CAREERS ===================== -->
+<div class="page" id="page-careers">
+  <div class="page-hero">
+    <div class="wrap">
+      <span class="eyebrow">Careers</span>
+      <h1>Build With Us</h1>
+      <p>Join a team shaping Pune's residential, commercial and hospitality landscape.</p>
+    </div>
+  </div>
+
+  <section class="tight">
+    <div class="wrap">
+      <div class="grid cols-4">
+        <div><h3 style="font-size:20px;">Legacy Culture</h3><p style="color:var(--taupe);font-size:14px;margin-top:8px;">Family-owned values, since 1998.</p></div>
+        <div><h3 style="font-size:20px;">Real Craft</h3><p style="color:var(--taupe);font-size:14px;margin-top:8px;">Work across development, hospitality &amp; design.</p></div>
+        <div><h3 style="font-size:20px;">Growth</h3><p style="color:var(--taupe);font-size:14px;margin-top:8px;">Two divisions, expanding portfolio.</p></div>
+        <div><h3 style="font-size:20px;">Pune-Rooted</h3><p style="color:var(--taupe);font-size:14px;margin-top:8px;">Based in PCMC, building across the city.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="tight">
+    <div class="wrap">
+      <div class="section-head"><span class="eyebrow">Current Openings</span><h2 style="font-size:32px;">Open Roles</h2></div>
+      <div class="placeholder-note">Sample listings — real openings are CMS-managed with an active/inactive toggle</div>
+      <div class="job-list">
+        <div class="job-row" onclick="document.getElementById('careers-form-anchor').scrollIntoView({behavior:'smooth'})">
+          <div class="jt"><h4>Site Sales Executive<span class="sample-flag">Sample</span></h4><div class="meta">Sales &amp; Marketing · Pimple Saudagar · Full-time</div></div>
+          <div class="jarrow">→</div>
+        </div>
+        <div class="job-row" onclick="document.getElementById('careers-form-anchor').scrollIntoView({behavior:'smooth'})">
+          <div class="jt"><h4>Site Engineer<span class="sample-flag">Sample</span></h4><div class="meta">Construction &amp; Projects · Tathawade · Full-time</div></div>
+          <div class="jarrow">→</div>
+        </div>
+        <div class="job-row" onclick="document.getElementById('careers-form-anchor').scrollIntoView({behavior:'smooth'})">
+          <div class="jt"><h4>Guest Relations Associate<span class="sample-flag">Sample</span></h4><div class="meta">Govind Garden · Hospitality · Full-time</div></div>
+          <div class="jarrow">→</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="tight" id="careers-form-anchor">
+    <div class="wrap">
+      <div class="section-head"><span class="eyebrow">Apply</span><h2 style="font-size:32px;">Application Form</h2></div>
+      <form id="careers-form" onsubmit="return handleFormSubmit(event,'careers-form','careers-submitted')">
+        <div class="form-grid">
+          <div class="field"><label>Full Name</label><input type="text" required></div>
+          <div class="field"><label>Email</label><input type="email" required></div>
+          <div class="field"><label>Phone</label><input type="tel" required></div>
+          <div class="field"><label>Position Applying For</label>
+            <select><option>Site Sales Executive</option><option>Site Engineer</option><option>Guest Relations Associate</option><option>General Application</option></select>
+          </div>
+          <div class="field full"><label>Experience</label><input type="text" placeholder="e.g. 3 years"></div>
+          <div class="field full"><label>Cover Note</label><textarea rows="4"></textarea></div>
+          <div class="field full"><label>Resume</label><div class="upload-box">Click or drag to upload — PDF/DOC</div></div>
+          <div class="field full"><div class="btn btn-dark" style="display:inline-block;" onclick="document.getElementById('careers-form').requestSubmit()">Submit Application</div></div>
+        </div>
+      </form>
+      <div class="form-submitted" id="careers-submitted">
+        <div class="check">✓</div>
+        <h3 style="font-size:26px;">Application Received</h3>
+        <p style="color:var(--taupe);margin-top:12px;">This is a prototype confirmation state — no data is actually sent.</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ===================== CONTACT ===================== -->
+<div class="page" id="page-contact">
+  <div class="page-hero">
+    <div class="wrap">
+      <span class="eyebrow">Contact</span>
+      <h1>Get In Touch</h1>
+      <p>For enquiries about Creations, Govind Garden, careers or partnerships.</p>
+    </div>
+  </div>
+
+  <section class="tight">
+    <div class="wrap">
+      <div class="contact-info-row">
+        <div class="ci"><span class="eyebrow">Phone</span><p><a href="tel:+919900581100">+91 99005 81100</a></p></div>
+        <div class="ci"><span class="eyebrow">Email</span><p><a href="mailto:info@thegovindgroup.com">info@thegovindgroup.com</a></p></div>
+        <div class="ci"><span class="eyebrow">Address</span><p>Govind Group Office, Level 4, P.K. Chowk,<br>Pimple Saudagar, Pune – 411027</p></div>
+      </div>
+      <a href="https://maps.app.goo.gl/e4Rx5xvgrd2vYfFz7?g_st=ic" target="_blank" rel="noopener" style="display:block;">
+        <div class="ph-image light map-block"><span class="ph-label">Google Maps Embed<br>— live map link: tap to open in Google Maps —</span></div>
+      </a>
+
+      <div class="section-head"><span class="eyebrow">Enquiry Form</span><h2 style="font-size:32px;">Send an Enquiry</h2></div>
+      <form id="contact-form" onsubmit="return handleFormSubmit(event,'contact-form','contact-submitted')">
+        <div class="form-grid">
+          <div class="field"><label>Name</label><input type="text" required></div>
+          <div class="field"><label>Phone</label><input type="tel" required></div>
+          <div class="field"><label>Email</label><input type="email" required></div>
+          <div class="field"><label>Enquiry Type</label>
+            <select><option>Creations / Real Estate</option><option>Govind Garden</option><option>Careers</option><option>Foundation / CSR</option><option>Other</option></select>
+          </div>
+          <div class="field"><label>Project</label><select id="contact-project-select"></select></div>
+          <div class="field full"><label>Message</label><textarea rows="4"></textarea></div>
+          <div class="field full"><div class="btn btn-dark" style="display:inline-block;" onclick="document.getElementById('contact-form').requestSubmit()">Send Enquiry</div></div>
+        </div>
+      </form>
+      <div class="form-submitted" id="contact-submitted">
+        <div class="check">✓</div>
+        <h3 style="font-size:26px;">Enquiry Sent</h3>
+        <p style="color:var(--taupe);margin-top:12px;">This is a prototype confirmation state — no data is actually sent.</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ===================== FOOTER (shared, appended after each public page via JS) ===================== -->
+<footer id="site-footer">
+  <div class="wrap">
+    <div class="footer-top">
+      <div>
+        <div class="footer-logo"><img src="[BASE64_IMAGE]" alt="Govind Group"></div>
+        <p>Real estate and hospitality developments across Pune, Maharashtra — since 1998.</p>
+      </div>
+      <div>
+        <h4>Creations</h4>
+        <a onclick="showPage('creations','ongoing')">Ongoing</a>
+        <a onclick="showPage('creations','upcoming')">Upcoming</a>
+        <a onclick="showPage('creations','completed')">Completed</a>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <a onclick="showPage('story')">Our Story</a>
+        <a onclick="showPage('hospitality','garden')">Govind Garden</a>
+        <a onclick="showPage('hospitality','foundation')">Foundation</a>
+        <a onclick="showPage('careers')">Careers</a>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <a href="tel:+919900581100">+91 99005 81100</a>
+        <a href="mailto:info@thegovindgroup.com">info@thegovindgroup.com</a>
+        <a href="https://thegovindgroup.com" target="_blank" rel="noopener">thegovindgroup.com</a>
+        <p>Level 4, P.K. Chowk, Pimple Saudagar,<br>Pune – 411027</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Govind Group. All rights reserved.</span>
+      <span class="admin-link" onclick="showPage('admin')">Internal · Admin</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ===================== ADMIN CONCEPT ===================== -->
+<div class="page" id="page-admin">
+  <div class="admin-shell">
+    <div class="admin-side">
+      <div class="abrand">Govind CMS<small>Internal Admin</small></div>
+      <div class="admin-nav-item active">🏠 Dashboard</div>
+      <div class="admin-nav-item">🏗 Projects</div>
+      <div class="admin-nav-item">🧑‍💼 Careers</div>
+      <div class="admin-nav-item">📥 Applications</div>
+      <div class="admin-nav-item">✉️ Enquiries</div>
+      <div class="admin-nav-item">🍽 Hospitality</div>
+      <div class="admin-nav-item">🤝 Foundation</div>
+      <div class="admin-nav-item">⚙️ Settings</div>
+    </div>
+    <div class="admin-main">
+      <div class="admin-topbar">
+        <h2>Projects</h2>
+        <div class="admin-btn">+ Add New Project</div>
+      </div>
+      <div class="admin-stats" id="admin-stats"></div>
+      <div class="admin-table-wrap">
+        <table class="admin-table" id="admin-table-body">
+          <thead><tr><th>Project</th><th>Status</th><th>Type</th><th>Location</th><th>Order</th><th>Actions</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="admin-back" onclick="showPage('home')">← Exit to Public Site</div>
+</div>
+
+<script>
+/* ================= PROJECT DATA ================= */
+const projects = [{"slug": "astra", "name": "Govind Astra", "status": "completed", "order": 1, "location": "Pimple Saudagar, Pune", "mapUrl": "https://maps.app.goo.gl/vLQo81EfNLByUzd66", "type": "Premium Commercial", "config": "Shops & Offices", "about": "Govind Astra brings 7 premium commercial units to Pimple Saudagar across a 1-acre footprint, with 13,400 sq.ft. of total commercial area.", "highlights": [["1,577\u20132,364 sq.ft.", "Carpet Area"], ["7", "Units"], ["1 Acre", "Project Size"], ["13,400 sq.ft.", "Commercial Area"]], "amenities": [], "distances": [["University Circle", "8.5 km"], ["Aundh", "4.5 km"], ["Baner", "7.5 km"], ["Wakad", "2.5 km"], ["Balewadi", "6.5 km"], ["Hinjewadi", "7 km"], ["Thergaon", "3.5 km"], ["Pimpri", "3 km"]], "specs": [["Specifications", ["Earthquake-resistant RCC structure with large column grids & P.T. slabs", "4\"/6\" BBM walls with internal gypsum-finished plaster", "External sand-faced chemically treated plaster", "Concealed electrical services, modular switches & FRP wiring", "Battery & generator backup for shops, offices, escalators & elevators", "Concealed plumbing with branded CP & sanitary fittings", "1m x 1m vitrified tiles in shops & offices; Italian marble atrium inlays", "Rolling shutters, high-speed elevator & escalator, STP for sanitation", "Glass facade with Alcobond cladding, LED facade lighting", "24\u00d77 security, two-level basement parking, professional maintenance"]]], "gallery": [], "floorplan": ["[BASE64_IMAGE]"], "walkthrough": null, "custom": []}, {"slug": "lifeville", "name": "Life Ville", "status": "completed", "order": 2, "location": "Pimple Saudagar, Pune", "mapUrl": "https://maps.app.goo.gl/vLQo81EfNLByUzd66", "type": "Residential", "config": "2 & 3 BHK Apartments", "about": "Life Ville brings 96 residences and 24 commercial spaces together around 26+ amenities in Pimple Saudagar.", "highlights": [["798\u20131,069 sq.ft.", "Carpet Area"], ["96", "Residential Units"], ["24", "Commercial Units"], ["26+", "Amenities"]], "amenities": ["Swimming Pool", "Gymnasium", "Children's Play Area", "Gazebo", "Yoga & Meditation Area", "Sun Deck", "Party Lawn", "Indoor Games (Carrom, Chess, Pool Table)", "Senior Citizen Sit-out", "Car Parking", "Earthquake Resistant", "Solar Water Heating", "Security Cabin", "Fire Fighting System", "Video Door Security", "Lifts", "Entrance Lobby", "Power Backup Lift", "24/7 Power Backup", "24/7 Water Supply", "Rainwater Harvesting"], "distances": [], "specs": [["Structure", ["Earthquake-resistant RCC frame structure"]], ["Painting", ["Emulsion paint for internal walls", "Superior quality exterior paint"]], ["Flooring", ["Marble-finish glazed vitrified tiles in living, dining, kitchen & bedrooms", "Anti-skid tiles in dry balcony & terraces"]], ["Windows", ["System windows with mosquito net", "Granite sill at window base"]], ["Doors", ["Premium main entrance door", "Laminated flush internal & washroom doors"]], ["Kitchen", ["Granite/Quartz platform", "SS sink", "Glazed tiles up to 6 ft", "Provision for water purifier & gas line"]], ["Bathrooms", ["Grohe/American Standard CP fittings", "Anti-skid flooring", "Designer dado tiles up to 8 ft", "Geysers in all bathrooms"]], ["Electrification", ["World-class modular switches", "Concealed copper wiring with MCB", "TV & telephone points", "AC provision in all bedrooms"]], ["Power", ["DG backup in common areas & in-flat light/fan points"]]], "gallery": ["[BASE64_IMAGE]"], "floorplan": ["[BASE64_IMAGE]"], "walkthrough": null, "custom": []}, {"slug": "brandsquare", "name": "Brand Square", "status": "completed", "order": 3, "location": "Pimple Saudagar, Pune", "mapUrl": "https://maps.app.goo.gl/vLQo81EfNLByUzd66", "type": "Premium Commercial", "config": "Retail & Commercial Units", "about": "Brand Square offers 64 commercial units across 2 acres, positioned for a catchment footfall of 5 lakh+ population.", "highlights": [["382\u201320,000 sq.ft.", "Carpet Area"], ["64", "Units"], ["2 Acres", "Project Size"], ["5 lac+", "Footfall Catchment"]], "amenities": ["Ample Underground Parking", "Hard Landscape", "Grand Lift Lobby", "Automatic Elevators", "LED Common-area Lighting", "CCTV in Common Areas", "Underground Water Storage", "Rainwater Harvesting", "DG Backup", "Concrete Driveway", "Sewage Treatment Plant", "Security Cabin & Parking Barrier", "Fire Fighting System"], "distances": [["Aditya Birla Hospital", "5.6 km"], ["Dange Chowk", "7.0 km"], ["Nashik Phata", "2.5 km"], ["Bhumkar Chowk", "6.8 km"], ["Aundh", "8.4 km"], ["Hinjewadi IT Park", "8 km"], ["Baner", "7.4 km"], ["Pune University", "10 km"], ["Pune\u2013Bangalore Expressway", "9.7 km"]], "specs": [], "gallery": ["[BASE64_IMAGE]", "[BASE64_IMAGE]", "[BASE64_IMAGE]"], "floorplan": ["[BASE64_IMAGE]", "[BASE64_IMAGE]"], "walkthrough": null, "custom": []}, {"slug": "thenook", "name": "The Nook", "status": "completed", "order": 4, "location": "Tathawade, Pune", "mapUrl": "https://maps.app.goo.gl/vLQo81EfNLByUzd66", "type": "Residential + Commercial", "config": "2 & 3 BHK Apartments", "about": "The Nook combines 288 luxury apartments and 7 commercial spaces in Tathawade around 26+ amenities.", "highlights": [["1,067\u20131,300 sq.ft.", "Carpet Area"], ["288", "Residential Units"], ["7", "Commercial Units"], ["26+", "Amenities"]], "amenities": ["Swimming Pool", "Gymnasium", "Children's Play Area", "Gazebo", "Yoga & Meditation Area", "Sun Deck", "Party Lawn", "Indoor Games (Carrom, Chess, Pool Table)", "Senior Citizen Sit-out", "Car Parking", "Earthquake Resistant", "Solar Water Heating", "Security Cabin", "Fire Fighting System", "Video Door Security", "Lifts", "Entrance Lobby", "Power Backup Lift", "24/7 Power & Water Supply", "Rainwater Harvesting"], "distances": [], "specs": [["Structure", ["RCC earthquake-resistant structure", "6\" brickwork, external & internal"]], ["Painting", ["Durable cement paint (external)", "Premium emulsion (internal)"]], ["Flooring", ["24\"x24\" vitrified tiles in living/dining, kitchen, passage & guest bedroom", "Laminated wooden flooring in master bedroom", "Anti-skid toilet & terrace tiles"]], ["Kitchen", ["Granite platform & steel sink", "Designer modular cabinets with hob & chimney", "Piped gas system, exhaust fan, water purifier provision"]], ["Bathrooms", ["Grohe/Roca-equivalent fittings", "Rain shower in master bath", "Solar water heating", "Wall-mounted WC", "Concealed plumbing"]], ["Electrification", ["Concealed wiring with circuit breakers", "Legrand-equivalent modular switches", "AC point in bedrooms & living room"]], ["Essential Facilities", ["Video door phone with intercom", "Generator backup for common areas", "In-apartment inverter backup"]]], "gallery": ["[BASE64_IMAGE]"], "floorplan": ["[BASE64_IMAGE]"], "walkthrough": null, "custom": []}, {"slug": "riverine", "name": "Govind Riverine", "status": "completed", "order": 5, "location": "Pimple Gaurav, Pune", "mapUrl": "https://maps.app.goo.gl/vLQo81EfNLByUzd66", "type": "Residential", "config": "1 & 2 BHK Apartments", "about": "Govind Riverine offers 18 apartments in Pimple Gaurav, positioned directly on the Nashik Phata touch highway.", "highlights": [["325\u2013485 sq.ft.", "Carpet Area"], ["18", "Apartments"], ["Nashik Phata", "Highway Touch"], ["20+", "Amenities"]], "amenities": ["Children's Play Area", "Gazebo", "Yoga & Meditation Area", "Sun Deck", "Party Lawn", "Indoor Games (Carrom, Chess)", "Senior Citizen Sit-out", "Car Parking", "Earthquake Resistant", "Solar Water Heating", "Security Cabin", "Fire Fighting System", "Video Door Security", "Lifts", "Entrance Lobby", "Power Backup Lift", "24/7 Power & Water Supply", "Rainwater Harvesting"], "distances": [], "specs": [["Structure", ["Earthquake-resistant RCC frame", "5\"/4\" masonry walls, double-coat sand-faced plaster"]], ["Doors & Windows", ["Laminated flush main & internal doors", "Powder-coated aluminium windows with mosquito net & MS safety grills"]], ["Flooring", ["2'x2' vitrified tiles throughout", "Anti-skid tiles in toilets & bathrooms"]], ["Kitchen", ["Dado tiles up to 2 ft above platform", "Black granite platform with SS sink", "Washing machine provision in dry balcony"]], ["Electrical", ["Concealed fire-resistant copper wiring (Finolex/Polycab-equivalent)", "Legrand-equivalent modular switches", "AC provision in master bedroom"]], ["Painting", ["Asian-equivalent external apex paint", "Asian-equivalent internal OBD paint"]]], "gallery": [], "floorplan": ["[BASE64_IMAGE]"], "walkthrough": null, "custom": []}, {"slug": "westford", "name": "The Westford", "status": "completed", "order": 6, "location": "Pimple Saudagar, Pune", "mapUrl": "https://maps.app.goo.gl/vLQo81EfNLByUzd66", "type": "Residential + Commercial", "config": "2, 3 & 4 BHK Apartments", "about": "The Westford brings 264 apartments and 4 commercial spaces together around 25+ resort-style amenities in Pimple Saudagar.", "highlights": [["615\u20132,461 sq.ft.", "Carpet Area"], ["264", "Apartments"], ["4", "Commercial Units"], ["25+", "Amenities"]], "amenities": ["Tennis Court", "Basketball Court", "Children's Play Area with Rubber Pit", "Well-equipped Gymnasium", "Yoga & Meditation Area", "Acupressure Pathway", "Decorative Entrance Lobby", "Senior Citizens' Area", "Gazebo with Sit-out", "Indoor Games Room", "Party Hall / Conference Room with Lawn", "Jogging Track", "Aroma Garden", "Swimming Pool with Kids' Pool", "24\u00d77 Security with CCTV", "Firefighting System", "Electric Boom Barriers", "Children Tracking System", "Grand Project Entrance", "Garbage Chute", "Rainwater Harvesting"], "distances": [], "specs": [["Flooring", ["800x800 tiles in living/dining, kitchen, passage & guest bedroom", "Wooden-finish tiles in master bedroom", "Anti-skid toilet & terrace tiles"]], ["Kitchen", ["Granite platform & SS sink", "Modular kitchen with hob & chimney", "Piped gas system", "Island kitchen in 4 BHK"]], ["Doors, Windows & Railings", ["Decorative main entrance door with digital lock", "3-track UPVC windows with mosquito nets", "Toughened-glass terrace railings"]], ["Bathrooms", ["Jaguar-equivalent fittings & sanitary ware", "Rain shower & solar water heating", "Wall-hung premium EWCs"]], ["Electrification", ["Concealed fire-resistant wiring", "Legrand-equivalent modular switches", "AC points in all bedrooms & living room"]], ["Essential Facilities", ["Colour video door phone with intercom", "DTH connection & broadband provision", "Alarm system, inverter provision"]]], "gallery": ["[BASE64_IMAGE]", "[BASE64_IMAGE]", "[BASE64_IMAGE]", "[BASE64_IMAGE]", "[BASE64_IMAGE]"], "floorplan": ["[BASE64_IMAGE]"], "walkthrough": null, "custom": []}, {"slug": "vision9", "name": "Vision 9", "status": "completed", "order": 7, "location": "Pimple Saudagar, Pune", "mapUrl": "https://maps.app.goo.gl/vLQo81EfNLByUzd66", "type": "Premium Commercial", "config": "Shops & Offices", "about": "Vision 9 offers 274 commercial units across a 3-acre development, positioned for a footfall catchment of 5 lakh+ population.", "highlights": [["240\u2013795 sq.ft.", "Carpet Area"], ["274", "Units"], ["3 Acres", "Project Size"], ["5 lac+", "Footfall Catchment"]], "amenities": [], "distances": [["University Circle", "8.5 km"], ["Aundh", "4.5 km"], ["Baner", "7.5 km"], ["Wakad", "2.5 km"], ["Balewadi", "6.5 km"], ["Hinjewadi", "7 km"], ["Thergaon", "3.5 km"], ["Pimpri", "3 km"]], "specs": [["Specifications", ["Earthquake-resistant RCC structure with large column grids & P.T. slabs", "4\"/6\" BBM walls, internal gypsum finish, external sand-faced plaster", "Concealed electrical services, modular switches & FRP wiring", "3-phase MSEB meter with separate MCB & ELCB unit", "Battery & generator backup for shops, escalators & elevators", "Underground water tank, municipal water supply", "Italian marble atrium inlays, designer common-toilet tiles", "14 ft shop height with loft, rolling shutters, STP for sanitation", "4 high-speed elevators & 4 escalators for retail/office spaces", "Gas leak & smoke detectors, backlit shop name boards", "12,500 sq.ft. central grand atrium with landscaped seating", "Two-level basement parking, 24\u00d77 security, professional maintenance"]]], "gallery": ["[BASE64_IMAGE]", "[BASE64_IMAGE]", "[BASE64_IMAGE]"], "floorplan": ["[BASE64_IMAGE]"], "walkthrough": null, "custom": []}, {"slug": "sterling", "name": "Sterling Blooms", "status": "completed", "order": 8, "location": "Pimple Saudagar, Pune", "mapUrl": "https://maps.app.goo.gl/vLQo81EfNLByUzd66", "type": "Residential + Commercial", "config": "1, 2 & 3 BHK Apartments", "about": "Sterling Blooms combines 92 apartments and 16 commercial units in Pimple Saudagar around 25+ amenities.", "highlights": [["493\u20131,553 sq.ft.", "Carpet Area"], ["92", "Apartments"], ["16", "Commercial Units"], ["25+", "Amenities"]], "amenities": ["Swimming Pool", "Gymnasium", "Children's Play Area", "Gazebo", "Yoga & Meditation Area", "Sun Deck", "Party Lawn", "Indoor Games (Carrom, Chess, Pool Table)", "Senior Citizen Sit-out", "Car Parking", "Earthquake Resistant", "Solar Water Heating", "Security Cabin", "Fire Fighting System", "Video Door Security", "Lifts", "Entrance Lobby", "Power Backup Lift", "24/7 Power & Water Supply", "Rainwater Harvesting"], "distances": [], "specs": [["Structure", ["Earthquake-resistant RCC frame", "5\"/4\" masonry walls, double-coat sand-faced plaster"]], ["Doors & Windows", ["Laminated flush doors with safety lock", "Powder-coated aluminium windows with mosquito net & MS grills"]], ["Flooring", ["2'x2' vitrified tiles to all rooms", "Anti-skid tiles to toilets & bathrooms"]], ["Kitchen", ["Dado tiles up to 2 ft above platform", "Black granite platform with SS sink"]], ["Electrical", ["Concealed fire-resistant copper wiring", "Legrand-equivalent modular switches", "AC provision in master bedroom"]], ["Painting", ["Asian-equivalent external apex & internal OBD paint"]]], "gallery": ["[BASE64_IMAGE]"], "floorplan": ["[BASE64_IMAGE]"], "walkthrough": null, "custom": []}, {"slug": "triose", "name": "Triose", "status": "completed", "order": 9, "location": "Pimple Saudagar, Pune", "mapUrl": "https://maps.app.goo.gl/yz7xGZfgzfUoL4vF7", "type": "Residential", "config": "2 & 3 BHK Apartments", "about": "Triose offers 144 luxury apartments across a 2-acre development in Pimple Saudagar, with 21+ amenities.", "highlights": [["1,044\u20131,600 sq.ft.", "Carpet Area"], ["144", "Apartments"], ["2 Acres", "Project Size"], ["21+", "Amenities"]], "amenities": ["Attractive Entrance Gate with Security Cabin", "Children's Play Area", "Jogging Track", "Party Lawn", "Well-equipped Gymnasium", "Garbage Chute", "Video Door Phone (Main Door)", "International-standard Lift with Backup", "Solar Water Heater (common toilet)", "Temple", "Clubhouse", "Meditation Zone", "Landscaped Garden", "Swimming Pool", "Grand Entrance Lobby", "Common Gas Piping", "Fire Fighting System", "Rain Water Harvesting", "Common Underground & Overhead Water Tank"], "distances": [], "specs": [["Kitchen", ["Granite platform, SS sink with drain board", "Ceramic tiles up to 2 ft", "Provision for water purifier/RO & exhaust fan", "Vitrified tile flooring, washing machine provision"]], ["Bedrooms", ["Laminated wooden flooring in master bedroom", "Branded vitrified tiles in other bedrooms", "Smooth gypsum finish, high-quality paint", "TV/telephone points, AC provision"]], ["Living Room", ["Elegant main door with video door phone", "Branded vitrified tiles with skirting", "TV/telephone points, branded modular electricals"]]], "gallery": ["[BASE64_IMAGE]"], "floorplan": [], "walkthrough": null, "custom": []}, {"slug": "presidential", "name": "Presidential Tower", "status": "ongoing", "order": 10, "flagship": true, "location": "Pune, Maharashtra", "mapUrl": "https://maps.app.goo.gl/7gdAniVBLT4XQeM8A", "type": "Luxury Residential + Commercial", "config": "3 & 4 BHK Grand Residences", "about": "Presidential Tower is Govind Group's luxury flagship \u2014 144 grand residences and 10 commercial units, with amphitheatre-anchored amenities, a full walkthrough film and smart-home specification.", "highlights": [["1,401\u20131,891 sq.ft.", "Carpet Area (Grand Residences)"], ["144", "Apartments"], ["10", "Commercial Units"], ["30+", "Amenities"]], "amenities": ["Amphitheatre", "Gazebo", "Kids' Play Area", "Multipurpose Court", "Paddle Court", "Cricket Court", "Mini-golf Court", "Gymnasium", "Gaming Zone", "Open Aerobics", "Card Room / Library", "Table Tennis", "Swimming Pool", "Conference Room", "Kids' Pool", "Cafeteria with Serving Counter", "Fountain", "Musical Garden & Seating", "Pergola with Seating", "Star Gazing Deck", "Multipurpose Area"], "distances": [], "specs": [["Structure", ["Earthquake-resistant RCC frame structure", "External RCC/AAC & internal 5\" light-weight AAC block walls"]], ["Smart Home Features", ["Digital door lock", "Home automation", "Three-tier security", "Alexa-compatible voice command", "Advanced security with smartphone-linked video door phone"]], ["Painting", ["Emulsion paint for internal walls", "Superior exterior protective paint"]], ["Flooring", ["Marble-finish glazed vitrified tiles in living, dining, kitchen & bedrooms", "Anti-skid tiles in dry balcony & terraces"]], ["Kitchen", ["Granite/Quartz platform, SS sink", "Glazed tiles up to 6 ft", "Water purifier & gas line provision"]], ["Bathrooms", ["Grohe/American Standard-equivalent CP fittings", "Designer dado tiles up to 8 ft", "Geysers in all bathrooms", "Glass partition in master toilet"]], ["Electrification", ["World-class modular switches", "Concealed copper wiring with MCB", "TV & telephone points, AC provision in all bedrooms"]], ["Power", ["DG backup in common areas & in-flat light/fan points"]]], "gallery": ["[BASE64_IMAGE]"], "floorplan": [], "unitSchedule": [["4 BHK \u2014 Building A", "144.76\u2013144.49 sq.m.", "1,889\u20131,908 sq.ft."], ["3 BHK \u2014 Building B", "117.11\u2013122.40 sq.m.", "1,421\u20131,478 sq.ft."]], "walkthrough": "https://youtu.be/UOS5r8QVSkM", "custom": [["Smart Home Features", ["App-based Digital Lock", "Home Automation", "Three-tier Security", "Alexa Voice Command", "Smartphone-linked Video Door Phone"]]]}, {"slug": "lumore", "name": "Lumore", "status": "ongoing", "order": 11, "nameOnly": true, "location": "Pune, Maharashtra", "type": "", "config": ""}, {"slug": "upcoming-hinjewadi", "name": "Hinjewadi", "status": "upcoming", "order": 12, "nameOnly": true, "location": "Hinjewadi, Pune", "type": "", "config": ""}, {"slug": "upcoming-ravet", "name": "Ravet", "status": "upcoming", "order": 13, "nameOnly": true, "location": "Ravet, Pune", "type": "", "config": ""}, {"slug": "upcoming-pimple-saudagar", "name": "Pimple Saudagar", "status": "upcoming", "order": 14, "nameOnly": true, "location": "Pimple Saudagar, Pune", "type": "", "config": ""}, {"slug": "upcoming-punawale", "name": "Punawale", "status": "upcoming", "order": 15, "nameOnly": true, "location": "Punawale, Pune", "type": "", "config": ""}];
+
+function statusPillClass(s){return 'status-pill status-'+s;}
+function statusLabel(s){return s.charAt(0).toUpperCase()+s.slice(1);}
+function bySlug(slug){ return projects.find(p=>p.slug===slug); }
+
+function projectCardHTML(p){
+  const clickable = !p.nameOnly;
+  const thumb = (p.gallery && p.gallery[0]) ? `style="background-image:url('${p.gallery[0]}');background-size:cover;background-position:center;"` : '';
+  return `
+  <div class="card ${clickable?'':'disabled'}" ${clickable?`onclick="showPage('project','${p.slug}')"`:''}>
+    <div class="ph-image" ${thumb}>${(p.gallery&&p.gallery[0])?'':`<span class="ph-label">${p.name}<br>— hero photo pending —</span>`}</div>
+    <div class="card-body">
+      <span class="${statusPillClass(p.status)}">${statusLabel(p.status)}</span>
+      <h3>${p.name}</h3>
+      <div class="meta">${p.location||''}${p.type?' · '+p.type:''}</div>
+      <div class="explore">${clickable?'Explore':'Coming Soon'} <span class="arrow">→</span></div>
+    </div>
+  </div>`;
+}
+
+function renderFeatured(){
+  const featured = ['presidential','lifeville','westford'].map(bySlug).filter(Boolean);
+  document.getElementById('featured-grid').innerHTML = featured.map(projectCardHTML).join('');
+}
+
+function renderCreations(filter){
+  const list = (filter==='all' ? projects : projects.filter(p=>p.status===filter)).slice().sort((a,b)=>a.order-b.order);
+  document.getElementById('creations-grid').innerHTML = list.map(projectCardHTML).join('');
+}
+
+function filterCreations(f){
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.toggle('active', b.dataset.filter===f));
+  renderCreations(f);
+}
+
+function renderAdminTable(){
+  const rows = [...projects].sort((a,b)=>a.order-b.order).map(p=>`
+    <tr>
+      <td><b>${p.name}</b>${p.nameOnly?' <span class="sample-flag" style="margin-left:6px;">Name only</span>':''}</td>
+      <td><span class="atag ${p.status}">${statusLabel(p.status)}</span></td>
+      <td>${p.type||'—'}</td>
+      <td>${p.location||'—'}</td>
+      <td>${p.order}</td>
+      <td><div class="arow-actions"><span>Edit</span><span>Duplicate</span><span>Archive</span></div></td>
+    </tr>`).join('');
+  document.getElementById('admin-table-body').querySelector('tbody').innerHTML = rows;
+  document.getElementById('admin-stats').innerHTML = `
+    <div class="astat"><div class="v">${projects.length}</div><div class="l">Total Projects</div></div>
+    <div class="astat"><div class="v">${projects.filter(p=>p.status==='ongoing').length}</div><div class="l">Ongoing</div></div>
+    <div class="astat"><div class="v">${projects.filter(p=>p.status==='upcoming').length}</div><div class="l">Upcoming</div></div>
+    <div class="astat"><div class="v">${projects.filter(p=>p.status==='completed').length}</div><div class="l">Completed</div></div>`;
+}
+
+function renderContactProjectSelect(){
+  const sel = document.getElementById('contact-project-select');
+  sel.innerHTML = '<option>General Enquiry</option>' + projects.map(p=>`<option>${p.name}</option>`).join('');
+}
+
+function imgGridHTML(images){
+  if(!images || !images.length) return '';
+  return images.map((src,i)=>`<div class="${i===0?'g1':''}" style="background-image:url('${src}');background-size:cover;background-position:center;border:1px solid var(--stone);"></div>`).join('');
+}
+
+function unitScheduleHTML(rows){
+  return `<div class="dist-list">${rows.map(r=>`<div class="dist-row"><span><b>${r[0]}</b></span><span>${r[1]} · ${r[2]}</span></div>`).join('')}</div>`;
+}
+
+function renderProjectDetail(slug){
+  const p = bySlug(slug);
+  if(!p || p.nameOnly) return;
+  const set = (id,val)=>{ const el=document.getElementById(id); if(el) el.innerHTML = val; };
+  const showSec = (id, cond)=>{ const el=document.getElementById(id); if(el) el.style.display = cond ? '' : 'none'; };
+
+  set('pd-eyebrow', p.type + (p.flagship? ' · Flagship' : ''));
+  set('pd-title', p.name);
+  set('pd-loctype', `<b>${p.location}</b> · ${p.config||p.type}`);
+  set('pd-highlights', (p.highlights||[]).map(h=>`<div class="hl"><div class="v">${h[0]}</div><div class="l">${h[1]}</div></div>`).join(''));
+  set('pd-about-title', p.about ? p.name : '');
+  set('pd-about-text', p.about || '');
+  set('pd-about-image', (p.gallery&&p.gallery[0]) ? `<div class="ph-image light" style="height:100%;min-height:340px;background-image:url('${p.gallery[0]}');background-size:cover;background-position:center;"></div>` : `<div class="ph-image light"><span class="ph-label">Hero Image<br>— to be added via CMS —</span></div>`);
+
+  showSec('pd-amenities-section', p.amenities && p.amenities.length);
+  set('pd-amenities-heading', (p.amenities||[]).length + ' Amenities');
+  set('pd-amenities-chips', (p.amenities||[]).map(a=>`<div class="chip">${a}</div>`).join(''));
+
+  showSec('pd-distances-section', p.distances && p.distances.length);
+  set('pd-distances-list', (p.distances||[]).map(d=>`<div class="dist-row"><span>${d[0]}</span><span>${d[1]}</span></div>`).join(''));
+
+  const hasCustom = p.custom && p.custom.length;
+  showSec('pd-custom-section', hasCustom);
+  if(hasCustom){
+    set('pd-custom-eyebrow','Custom Section — flexible CMS block');
+    set('pd-custom-title', p.custom[0][0]);
+    set('pd-custom-text', `<div class="chip-row">${p.custom[0][1].map(c=>`<div class="chip">${c}</div>`).join('')}</div>`);
+    set('pd-custom-image', p.walkthrough ? `<div class="ph-image"><span class="ph-label">Walkthrough Thumbnail</span></div>` : '');
+    set('pd-custom-cta', p.walkthrough ? `<a href="${p.walkthrough}" target="_blank" rel="noopener" class="btn btn-outline" style="display:inline-block;margin-top:10px;">Watch Walkthrough ↗</a>` : '');
+  }
+
+  showSec('pd-gallery-section', p.gallery && p.gallery.length);
+  set('pd-gallery-grid', imgGridHTML(p.gallery));
+
+  const hasFP = (p.floorplan && p.floorplan.length) || (p.unitSchedule && p.unitSchedule.length);
+  showSec('pd-floorplan-section', hasFP);
+  if(p.floorplan && p.floorplan.length){
+    set('pd-floorplan-grid', imgGridHTML(p.floorplan));
+  } else if(p.unitSchedule && p.unitSchedule.length){
+    set('pd-floorplan-grid', `<div class="placeholder-note">Detailed floor plans are vector CAD drawings — unit schedule below, full drawings available on request</div>` + unitScheduleHTML(p.unitSchedule));
+  }
+
+  set('pd-spec-accordion', (p.specs||[]).map(s=>`
+    <div class="accordion-item" onclick="this.classList.toggle('open')">
+      <div class="accordion-head"><h4>${s[0]}</h4><span class="accordion-plus">+</span></div>
+      <div class="accordion-body"><p>${s[1].join(' · ')}</p></div>
+    </div>`).join(''));
+
+  set('pd-enquire-title', 'Enquire About '+p.name);
+  const related = projects.filter(x=>x.slug!==p.slug && !x.nameOnly).sort((a,b)=>a.order-b.order).slice(0,3);
+  set('pd-related', related.map(projectCardHTML).join(''));
+}
+
+/* ================= PAGE ROUTING ================= */
+function showPage(page, param){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  const targetId = page==='project' ? 'page-project' : 'page-'+page;
+  const el = document.getElementById(targetId);
+  if(el) el.classList.add('active');
+
+  const footer = document.getElementById('site-footer');
+  footer.style.display = (page==='admin') ? 'none' : '';
+
+  const header = document.getElementById('site-header');
+  if(page==='admin'){ header.style.display='none'; } else { header.style.display=''; }
+
+  document.querySelectorAll('.nav-link').forEach(n=>n.classList.remove('active'));
+
+  if(page==='creations'){ filterCreations(param||'all'); }
+  if(page==='project' && param){ renderProjectDetail(param); }
+  if(page==='hospitality' && param){
+    setTimeout(()=>{ const target = document.getElementById(param==='garden'?'hosp-garden':'hosp-foundation'); if(target) target.scrollIntoView({behavior:'smooth'}); }, 60);
+  } else {
+    window.scrollTo({top:0,behavior:'instant'});
+  }
+  updateHeaderMode(page);
+}
+
+function updateHeaderMode(page){
+  const header = document.getElementById('site-header');
+  if(page==='home'){
+    header.classList.remove('light-mode');
+    header.classList.remove('solid');
+    onScroll();
+  } else {
+    header.classList.add('light-mode');
+  }
+}
+
+function onScroll(){
+  const header = document.getElementById('site-header');
+  const activePage = document.querySelector('.page.active');
+  if(activePage && activePage.id==='page-home'){
+    if(window.scrollY > 60){ header.classList.add('solid'); } else { header.classList.remove('solid'); }
+  }
+}
+window.addEventListener('scroll', onScroll);
+
+/* ================= MOBILE NAV ================= */
+function toggleMobileNav(){
+  document.getElementById('mobile-nav').classList.toggle('open');
+}
+function toggleMnav(id){
+  document.getElementById(id).classList.toggle('expanded');
+}
+
+/* ================= FORMS ================= */
+function handleFormSubmit(e, formId, successId){
+  e.preventDefault();
+  document.getElementById(formId).style.display='none';
+  document.getElementById(successId).classList.add('show');
+  return false;
+}
+
+/* ================= INIT ================= */
+renderFeatured();
+renderCreations('all');
+renderAdminTable();
+renderContactProjectSelect();
+
+/* Brand associations — text placeholders until HD logo files are supplied */
+const brandAssociations = ['Axis Bank','Jupiter Hospital','Raymond'];
+document.getElementById('brand-row').innerHTML = brandAssociations.map(b=>`
+  <div class="brand-tile">${b}<span class="pending">logo pending</span></div>
+`).join('');
+</script>
+</body>
+</html>
