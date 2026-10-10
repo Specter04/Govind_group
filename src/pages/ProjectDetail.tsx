@@ -1,4 +1,4 @@
-import { useParams, Navigate, useNavigate } from 'react-router-dom';
+import { useParams, Navigate } from 'react-router-dom';
 import { clsx } from 'clsx';
 import { useState } from 'react';
 import { useProjects } from '../context/ProjectContext';
@@ -8,7 +8,6 @@ import { ProjectCard } from '../components/ProjectCard';
 export default function ProjectDetail() {
   const { projects } = useProjects();
   const { slug } = useParams();
-  const navigate = useNavigate();
   const project = projects.find(p => p.slug === slug);
   const [openAccordion, setOpenAccordion] = useState<number | null>(null);
   const [lightboxImg, setLightboxImg] = useState<string | null>(null);
@@ -226,7 +225,7 @@ export default function ProjectDetail() {
         <div className="wrap">
           <Reveal>
             <h3 className="text-[clamp(28px,3.6vw,40px)] mb-6">Enquire About {project.name}</h3>
-            <div className="btn btn-primary inline-block" onClick={() => navigate('/contact', { state: { projectSlug: project.slug } })}>Enquire About This Creation</div>
+            <div className="btn btn-primary inline-block" onClick={() => window.dispatchEvent(new Event('openEnquireModal'))}>Enquire About This Creation</div>
           </Reveal>
         </div>
       </div>

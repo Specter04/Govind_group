@@ -7,7 +7,6 @@ import ProjectDetail from './pages/ProjectDetail'
 import OurStory from './pages/OurStory'
 import Hospitality from './pages/Hospitality'
 import Careers from './pages/Careers'
-import Contact from './pages/Contact'
 import Admin from './pages/Admin'
 import AdminLogin from './pages/AdminLogin'
 
@@ -43,7 +42,6 @@ export default function App() {
           <Route path="story" element={<OurStory />} />
           <Route path="hospitality" element={<Hospitality />} />
           <Route path="careers" element={<Careers />} />
-          <Route path="contact" element={<Contact />} />
         </Route>
         <Route path="/admin/login" element={<AdminLogin onLogin={handleLogin} />} />
         <Route 

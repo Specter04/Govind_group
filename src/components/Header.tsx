@@ -3,6 +3,7 @@ import type { SVGProps } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { clsx } from 'clsx';
 import { motion } from 'framer-motion';
+import { EnquireModal } from './EnquireModal';
 
 const iconClass = "h-[22px] w-[22px] shrink-0";
 
@@ -34,6 +35,7 @@ export const Header = () => {
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const [expandedMnav, setExpandedMnav] = useState<string | null>(null);
   const [searchOpen, setSearchOpen] = useState(false);
+  const [enquireModalOpen, setEnquireModalOpen] = useState(false);
   const location = useLocation();
 
   const isHome = location.pathname === '/';
@@ -42,9 +44,16 @@ export const Header = () => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 60);
     };
+    const openModal = () => setEnquireModalOpen(true);
+    
     window.addEventListener('scroll', handleScroll);
+    window.addEventListener('openEnquireModal', openModal);
+    
     handleScroll();
-    return () => window.removeEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('openEnquireModal', openModal);
+    };
   }, []);
 
   const headerClasses = clsx(
@@ -74,7 +83,7 @@ export const Header = () => {
             </div>
           </Link>
 
-          <nav className="hidden md:flex items-center gap-6 min-[1500px]:gap-9">
+          <nav className="hidden lg:flex items-center gap-6 xl:gap-9">
             <div className="relative group">
               <Link to="/creations" className="text-[13px] tracking-[.1em] uppercase text-ivory font-semibold cursor-pointer py-1.5 flex items-center gap-1.5 after:content-[''] after:absolute after:left-0 after:-bottom-0.5 after:w-0 after:h-[1px] after:bg-gold after:transition-all after:duration-300 hover:after:w-full">
                 Creations <span className="text-[9px] text-gold-light translate-y-[1px]">▾</span>
@@ -103,20 +112,14 @@ export const Header = () => {
                 <Link to="/journal" className="block px-[22px] py-2.5 text-[12px] tracking-[.08em] uppercase text-ivory-sec whitespace-nowrap hover:text-gold-light hover:bg-[rgba(212,182,131,.06)]">Journal / Updates</Link>
               </div>
             </div>
-            
-            <div className="relative group">
-              <Link to="/contact" className="text-[13px] tracking-[.1em] uppercase text-ivory font-semibold cursor-pointer py-1.5 flex items-center gap-1.5 after:content-[''] after:absolute after:left-0 after:-bottom-0.5 after:w-0 after:h-[1px] after:bg-gold after:transition-all after:duration-300 hover:after:w-full">
-                Contact
-              </Link>
-            </div>
           </nav>
 
           <div className="flex items-center gap-5">
-            <div className="hidden min-[1500px]:flex items-center gap-6 text-ivory">
-              <Link to="/contact" className="flex items-center gap-2 text-[13px] tracking-[.08em] uppercase font-semibold hover:text-gold-light transition-colors duration-300">
+            <div className="hidden lg:flex items-center gap-6 text-ivory">
+              <button onClick={() => setEnquireModalOpen(true)} className="flex items-center gap-2 text-[13px] tracking-[.08em] uppercase font-semibold hover:text-gold-light transition-colors duration-300 cursor-pointer">
                 <EnquireIcon className={iconClass} />
                 Enquire
-              </Link>
+              </button>
               <a href="https://wa.me/919900581100" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-[13px] tracking-[.08em] uppercase font-semibold hover:text-gold-light transition-colors duration-300">
                 <ChatIcon className={iconClass} />
                 Chat
@@ -132,7 +135,7 @@ export const Header = () => {
                 Search
               </button>
             </div>
-            <div className="md:hidden flex flex-col gap-1 cursor-pointer z-[410]" onClick={() => setMobileNavOpen(true)}>
+            <div className="lg:hidden flex flex-col gap-1 cursor-pointer z-[410]" onClick={() => setMobileNavOpen(true)}>
               <span className="w-6 h-[1.5px] bg-ivory block transition-all duration-300"></span>
               <span className="w-6 h-[1.5px] bg-ivory block transition-all duration-300"></span>
               <span className="w-6 h-[1.5px] bg-ivory block transition-all duration-300"></span>
@@ -142,7 +145,7 @@ export const Header = () => {
         <div
           id="header-search-panel"
           className={clsx(
-            "hidden min-[1500px]:block absolute right-10 top-full w-[320px] border border-[rgba(212,182,131,.25)] bg-navy-deep/95 p-3 shadow-[0_20px_40px_rgba(0,0,0,.35)] transition-all duration-300",
+            "hidden lg:block absolute right-10 top-full w-[320px] border border-[rgba(212,182,131,.25)] bg-navy-deep/95 p-3 shadow-[0_20px_40px_rgba(0,0,0,.35)] transition-all duration-300",
             searchOpen ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 -translate-y-2 pointer-events-none"
           )}
         >
@@ -208,13 +211,15 @@ export const Header = () => {
             </div>
           </motion.div>
         </div>
-
+        
         <div className="border-b border-[rgba(212,182,131,.15)] py-[18px]">
-          <div className="flex items-center justify-between cursor-pointer" onClick={closeMobileNav}>
-            <Link to="/contact" className="font-serif text-[26px] text-ivory block w-full">Contact</Link>
+          <div className="flex items-center justify-between cursor-pointer" onClick={() => { setEnquireModalOpen(true); closeMobileNav(); }}>
+            <span className="font-serif text-[26px] text-ivory block w-full">Enquire</span>
           </div>
         </div>
       </div>
+
+      <EnquireModal isOpen={enquireModalOpen} onClose={() => setEnquireModalOpen(false)} />
     </>
   );
 };
